@@ -37,6 +37,11 @@ for (const value of values) {
     value.style.fontStyle = "italic";
     value.style.fontWeight = "700";
     value.style.color = "#ff17ff";
+    
+}
+//Как использовать эту функцию - способа не нашел!!!
+function addLeadingZero() {
+    return String(content).padStart(2, "0");
 }
 
 
@@ -45,6 +50,7 @@ const d = document.querySelector(".value[data-days]");
 const h = document.querySelector(".value[data-hours]");
 const m = document.querySelector(".value[data-minutes]");
 const s = document.querySelector(".value[data-seconds]");
+
 
 
 
@@ -82,18 +88,16 @@ const options = {
 flatpickr(input, options);
 
 function startTimer(evt) {
-   
     
     btnStart.setAttribute("disabled", true);
     timerId = setInterval(() => {
     
-            convertMs();
-            console.log(convertMs());
+        convertMs();
+        console.log(convertMs());
         
     }, 1000);
 
-
-    };
+};
 
 
 function convertMs() {
@@ -112,18 +116,21 @@ function convertMs() {
             
         // Remaining days
         const days = Math.floor(ms / day);
-        d.textContent = days;
+        d.textContent = String(days).padStart(2, "0");
         // Remaining hours
         const hours = Math.floor((ms % day) / hour);
-        h.textContent = hours;
+        h.textContent = String(hours).padStart(2, "0");
         // Remaining minutes
         const minutes = Math.floor(((ms % day) % hour) / minute);
-        m.textContent = minutes;
+        m.textContent = String(minutes).padStart(2, "0");
         // Remaining seconds
         const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-        s.textContent = seconds;
+        s.textContent = String(seconds).padStart(2, "0");
 
-        return { days, hours, minutes, seconds };
+        const Time = { days, hours, minutes, seconds };
+        return (Time);
+        }
+
+    
     }
     
-}
