@@ -6,31 +6,32 @@ const delayEl = document.querySelector('input[name = "delay"]');
 const submit = document.querySelector('.form');
 submit.addEventListener('submit', startFunction);
 
-
+let timeId = 0;
 
 function startFunction(event) {
   event.preventDefault();
   
-    let amountValue = Number(amount.value);
+  let amountValue = Number(amount.value);
     
-    let i;
+  let i;
   
-    for (i = 1; i <= amountValue; i += 1) {
+  for (i = 1; i <= amountValue; i += 1) {
     const firstDelay = Number(delayEl.value);
 
     const position = i;
     const delay = Number(delayEl.value) + i * Number(stepEl.value) - Number(stepEl.value);
 
-    createPromise(position, delay);
+    timeId = setTimeout(() => {
+      createPromise(position, delay);
     }
-
+      , delay);
+  }
 }
 
 
-
-function createPromise(position, delay) {
+  function createPromise(position, delay) {
   
-  const promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
 
       const shouldResolve = Math.random() > 0.3;
   
@@ -44,25 +45,25 @@ function createPromise(position, delay) {
         
       }
   
-  });
+    });
 
-  promise
-    .then(
-    result => {
+    promise
+      .then(
+        result => {
       
-      Notify.success(result);
-      console.log(result);
+          Notify.success(result);
+          console.log(result);
       
-    })
+        })
 
-    .catch(error => {
+      .catch(error => {
       
-      Notify.failure(error);
-      console.log(error);
+        Notify.failure(error);
+        console.log(error);
       
-    }
+      }
   
-  )
+      )
   
-}
+  }
 
